@@ -25,6 +25,19 @@ public/uploads/media/souad/legacy-banner.jpg
 public/uploads/media/souad/gallery/*.jpg   (أي عدد من الصور، أي اسم — تظهر تلقائيًا في المعرض)
 ```
 
+### صلاحيات الرفع على سيرفر حقيقي (VPS / Shared Hosting)
+
+عند النشر على سيرفر حقيقي، لازم يكون مجلد `public/uploads` (بالإضافة إلى `storage` و `bootstrap/cache` كالمعتاد في أي مشروع Laravel) قابلًا للكتابة من قِبل يوزر الويب سيرفر (غالبًا `www-data` على Ubuntu/Debian)، وإلا سيظهر خطأ `UnableToCreateDirectory` عند أول محاولة رفع صورة:
+
+```bash
+cd /path/to/project
+mkdir -p public/uploads
+chown -R www-data:www-data public/uploads storage bootstrap/cache
+chmod -R 775 public/uploads storage bootstrap/cache
+```
+
+(استبدل `www-data` باليوزر الفعلي لديك إن اختلف — تحقق منه بأمر مثل `ps aux | grep php-fpm`.)
+
 ## الدخول إلى لوحة الإدارة
 
 ```

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @php
+    use App\Support\Categories;
     $title = 'اللقاءات والإعلام';
     $description = 'لقاءات ومقابلات إعلامية موثقة لسيدة الأعمال سعاد الحميضي.';
 @endphp
@@ -15,6 +16,15 @@
 
 <section class="section section-cream">
   <div class="container-xl">
+    @if($categories->isNotEmpty())
+      <div class="d-flex flex-wrap gap-2 justify-content-center mb-5">
+        <a href="{{ route('media.index') }}" class="btn-outline-dark-sm {{ !$category ? 'active-filter' : '' }}">الكل</a>
+        @foreach($categories as $cat)
+          <a href="{{ route('media.index', ['category' => $cat]) }}" class="btn-outline-dark-sm {{ $category === $cat ? 'active-filter' : '' }}">{{ Categories::mediaLabel($cat) }}</a>
+        @endforeach
+      </div>
+    @endif
+
     @if($mediaItems->isNotEmpty())
       <div class="row g-4">
         @foreach($mediaItems as $m)
@@ -29,6 +39,7 @@
                 <div class="video-play"><span><i class="bi bi-play-fill"></i></span></div>
               </div>
               <div class="video-meta">
+                <span class="badge badge-cat rounded-pill mb-2">{{ Categories::mediaLabel($m->category) }}</span>
                 <h6 class="fs-6 mb-1">{{ $m->title }}</h6>
                 <p class="small text-secondary mb-0">{{ $m->channel_name }}</p>
                 @if($m->published_at)<p class="small text-secondary mb-0">{{ $m->published_at->format('Y/m/d') }}</p>@endif
@@ -40,7 +51,7 @@
       </div>
       <div class="mt-5">{{ $mediaItems->links() }}</div>
     @else
-      @include('partials.empty-state', ['text' => 'سيتم إضافة اللقاءات الإعلامية الموثقة قريبًا.'])
+      @include('partials.empty-state', ['text' => 'لا توجد لقاءات في هذا التصنيف حاليًا.'])
     @endif
   </div>
 </section>

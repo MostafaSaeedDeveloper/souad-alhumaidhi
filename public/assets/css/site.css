@@ -76,6 +76,7 @@ img{ max-width:100%; }
   font-size:.9rem; display:inline-flex; align-items:center; gap:.4rem; transition:.25s;
 }
 .btn-outline-dark-sm:hover{ background:var(--c-charcoal); color:#fff; }
+.btn-outline-dark-sm.active-filter{ background:var(--c-charcoal); color:#fff; border-color:var(--c-charcoal); }
 
 /* ---------- Header ---------- */
 #siteHeader{

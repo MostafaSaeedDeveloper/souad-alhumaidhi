@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\MediaItem;
+use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mediaItems = MediaItem::published()->ordered()->paginate(9);
+        $category = $request->get('category');
 
-        return view('media.index', compact('mediaItems'));
+        $mediaItems = MediaItem::published()->category($category)->ordered()
+            ->paginate(9)->withQueryString();
+
+        $categories = MediaItem::published()->pluck('category')->filter()->unique();
+
+        return view('media.index', compact('mediaItems', 'categories', 'category'));
     }
 
     public function show(MediaItem $media)

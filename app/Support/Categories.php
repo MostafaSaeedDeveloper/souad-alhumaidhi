@@ -18,6 +18,14 @@ class Categories
         'community_development' => 'التنمية المجتمعية',
     ];
 
+    private const MEDIA_LABELS = [
+        'interview' => 'لقاءات تلفزيونية',
+        'conference' => 'مؤتمرات',
+        'dialogue' => 'حوارات',
+        'report' => 'تقارير',
+        'news' => 'أخبار',
+    ];
+
     public static function label(?string $key): string
     {
         return self::LABELS[$key] ?? ($key ?? '');
@@ -26,5 +34,15 @@ class Categories
     public static function all(): array
     {
         return self::LABELS;
+    }
+
+    public static function mediaLabel(?string $key): string
+    {
+        return self::MEDIA_LABELS[$key] ?? ($key ?? '');
+    }
+
+    public static function mediaAll(): array
+    {
+        return self::MEDIA_LABELS;
     }
 }

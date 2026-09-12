@@ -23,6 +23,7 @@
             <div class="portrait-placeholder"><i class="bi bi-camera-video fs-1"></i></div>
           @endif
         </div>
+        <span class="badge badge-cat rounded-pill mb-2">{{ \App\Support\Categories::mediaLabel($media->category) }}</span>
         <p class="text-secondary">{{ $media->description }}</p>
         <p class="small text-secondary">{{ $media->channel_name }} @if($media->published_at) · {{ $media->published_at->format('Y/m/d') }} @endif</p>
 

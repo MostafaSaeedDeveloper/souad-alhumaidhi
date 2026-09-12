@@ -10,7 +10,7 @@ class MediaItem extends Model
     protected $table = 'media_items';
 
     protected $fillable = [
-        'title', 'slug', 'description', 'youtube_url', 'youtube_id', 'thumbnail',
+        'title', 'slug', 'description', 'category', 'youtube_url', 'youtube_id', 'thumbnail',
         'channel_name', 'published_at', 'source_name', 'source_url',
         'is_verified', 'is_featured', 'sort_order', 'status',
     ];
@@ -34,6 +34,11 @@ class MediaItem extends Model
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
+    }
+
+    public function scopeCategory(Builder $query, ?string $category): Builder
+    {
+        return $category ? $query->where('category', $category) : $query;
     }
 
     public function scopeOrdered(Builder $query): Builder

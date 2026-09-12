@@ -19,7 +19,7 @@ class HomeController extends Controller
         $biography = Biography::first();
         $timeline = TimelineEvent::published()->ordered()->get();
         $achievements = Achievement::published()->ordered()->take(8)->get();
-        $mediaItems = MediaItem::published()->ordered()->take(4)->get();
+        $mediaItems = MediaItem::published()->featured()->ordered()->take(4)->get();
         $galleryItems = GalleryItem::published()->ordered()->take(8)->get();
         $initiatives = Initiative::published()->ordered()->take(6)->get();
         $articles = Article::published()->ordered()->take(3)->get();

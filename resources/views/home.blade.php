@@ -225,26 +225,28 @@
     </div>
 
     @if($mediaItems->isNotEmpty())
-      <div class="row g-4">
-        @foreach($mediaItems as $i => $m)
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
-            <div class="video-card">
-              <div class="video-thumb" data-video-embed="{{ $m->embedUrl() }}" data-video-title="{{ $m->title }}">
-                @if($m->thumbnail)
-                  <img src="{{ $m->thumbnail }}" alt="{{ $m->title }}" loading="lazy">
-                @else
-                  <div class="portrait-placeholder"><i class="bi bi-camera-video fs-1"></i></div>
-                @endif
-                <div class="video-play"><span><i class="bi bi-play-fill"></i></span></div>
-              </div>
-              <div class="video-meta">
-                <h6 class="fs-6 mb-1">{{ Str::limit($m->title, 55) }}</h6>
-                <p class="small text-secondary mb-0">{{ $m->channel_name }}</p>
-                @if($m->published_at)<p class="small text-secondary mb-0">{{ $m->published_at->format('Y/m/d') }}</p>@endif
+      <div class="swiper media-swiper" data-swiper='{"slidesPerView":1.15,"spaceBetween":20,"breakpoints":{"768":{"slidesPerView":2,"spaceBetween":24},"1200":{"slidesPerView":4,"spaceBetween":24}}}'>
+        <div class="swiper-wrapper py-2">
+          @foreach($mediaItems as $m)
+            <div class="swiper-slide h-auto">
+              <div class="video-card h-100">
+                <div class="video-thumb" data-video-embed="{{ $m->embedUrl() }}" data-video-title="{{ $m->title }}">
+                  @if($m->thumbnail)
+                    <img src="{{ $m->thumbnail }}" alt="{{ $m->title }}" loading="lazy">
+                  @else
+                    <div class="portrait-placeholder"><i class="bi bi-camera-video fs-1"></i></div>
+                  @endif
+                  <div class="video-play"><span><i class="bi bi-play-fill"></i></span></div>
+                </div>
+                <div class="video-meta">
+                  <h6 class="fs-6 mb-1">{{ Str::limit($m->title, 55) }}</h6>
+                  <p class="small text-secondary mb-0">{{ $m->channel_name }}</p>
+                  @if($m->published_at)<p class="small text-secondary mb-0">{{ $m->published_at->format('Y/m/d') }}</p>@endif
+                </div>
               </div>
             </div>
-          </div>
-        @endforeach
+          @endforeach
+        </div>
       </div>
     @else
       @include('partials.empty-state', ['text' => 'سيتم إضافة اللقاءات الإعلامية الموثقة قريبًا.'])

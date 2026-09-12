@@ -22,10 +22,25 @@ class SettingSeeder extends Seeder
             'footer_text' => 'موقع تكريمي يوثق مسيرة سعاد الحميضي وإرثها الإنساني والمهني.',
             'site_meta_title' => 'سعاد الحميضي | رحلة عطاء .. أثر لا ينتهي',
             'site_meta_description' => 'موقع تكريمي يوثق مسيرة سيدة الأعمال الكويتية الراحلة سعاد الحميضي (1939 - 2017)، وإرثها الإنساني والمهني، وأبرز محطاتها وإنجازاتها.',
+            'hero_object_position' => 'top center',
         ];
 
         foreach ($values as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => $value, 'type' => 'text', 'group' => 'general']);
+        }
+
+        // Conventional filenames under storage/app/public/media/souad/ — dropping a real file at
+        // any of these exact paths (via admin upload or a direct file copy) makes it appear on the
+        // site immediately, with no further code changes. These rows are only created if missing,
+        // so re-running seeders never overwrites an image already set via the admin.
+        $imageDefaults = [
+            'hero_portrait_image' => 'media/souad/hero-portrait.jpg',
+            'hero_bg_image' => 'media/souad/hero-bg.jpg',
+            'legacy_banner_image' => 'media/souad/legacy-banner.jpg',
+        ];
+
+        foreach ($imageDefaults as $key => $path) {
+            Setting::firstOrCreate(['key' => $key], ['value' => $path, 'type' => 'image', 'group' => 'hero']);
         }
     }
 }

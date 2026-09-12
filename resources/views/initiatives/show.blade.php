@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @php
+    use App\Support\Media;
     $title = $initiative->title;
     $description = \Illuminate\Support\Str::limit($initiative->summary, 155);
+    $initiativeImageUrl = Media::url($initiative->image);
 @endphp
 
 @section('content')
@@ -16,6 +18,9 @@
   <div class="container-xl">
     <div class="row gy-5">
       <div class="col-lg-8">
+        @if($initiativeImageUrl)
+          <img src="{{ $initiativeImageUrl }}" alt="{{ $initiative->title }}" class="w-100 rounded-3 mb-4" style="aspect-ratio:16/9;object-fit:cover;">
+        @endif
         <p class="lead text-secondary">{{ $initiative->summary }}</p>
         @if($initiative->content)
           <div class="text-secondary" style="white-space:pre-line">{{ $initiative->content }}</div>

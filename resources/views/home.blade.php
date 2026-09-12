@@ -3,6 +3,7 @@
 @php
     use App\Models\Setting;
     use App\Support\Categories;
+    use App\Support\Media;
     use Illuminate\Support\Str;
     use Illuminate\Support\Facades\Storage;
     $title = null;
@@ -24,30 +25,33 @@
 </script>
 @endpush
 
+@php
+    $heroPortraitUrl = Media::url(Setting::get('hero_portrait_image'));
+    $heroBgUrl = Media::url(Setting::get('hero_bg_image'));
+    $heroObjectPosition = Setting::get('hero_object_position', 'top center');
+@endphp
+
 @section('content')
 
 {{-- ============ HERO ============ --}}
-<section class="hero-section">
+<section class="hero-section" @if($heroBgUrl) style="--hero-bg-image:url('{{ $heroBgUrl }}')" @endif>
+  <div class="bg-portrait"></div>
   <div class="bg-fade"></div>
   <div class="container-xl position-relative">
     <div class="row align-items-center gy-5">
       <div class="col-lg-5 order-lg-2" data-aos="fade-down" data-aos-delay="100">
         <div class="hero-portrait-frame">
           <div class="portrait-inner">
-            <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#d4af6a"/>
-                  <stop offset="1" stop-color="#8f6a2e"/>
-                </linearGradient>
-              </defs>
-              <circle cx="100" cy="82" r="52" fill="none" stroke="url(#g1)" stroke-width="2"/>
-              <path d="M50 210c8-46 34-70 50-70s42 24 50 70" fill="none" stroke="url(#g1)" stroke-width="2"/>
-              <path d="M100 20c14 18 14 36 0 54-14-18-14-36 0-54z" fill="url(#g1)" opacity=".85"/>
-            </svg>
+            @if($heroPortraitUrl)
+              <img src="{{ $heroPortraitUrl }}" alt="سعاد الحميضي" loading="eager" style="object-position: {{ $heroObjectPosition }};">
+            @else
+              <div class="minimal-fallback"><i class="bi bi-flower2"></i></div>
+            @endif
           </div>
         </div>
-        <p class="notice-source text-center mt-2 text-white-50">لا تتوفر صورة موثقة الحقوق للنشر حاليًا — رمزية توضيحية</p>
+        @unless($heroPortraitUrl)
+          <p class="notice-source text-center mt-2 text-white-50">لا تتوفر صورة موثقة الحقوق للنشر حاليًا — رمزية توضيحية</p>
+        @endunless
       </div>
       <div class="col-lg-7 order-lg-1">
         <div data-aos="fade-up">
@@ -112,9 +116,13 @@
     <div class="row gy-5 align-items-center">
       <div class="col-lg-5" data-aos="fade-left">
         <div class="bio-portrait">
-          <div class="portrait-placeholder light" style="aspect-ratio:4/5;">
-            <i class="bi bi-flower2" style="font-size:4rem;"></i>
-          </div>
+          @if($biographyImageUrl = Media::url($biography->image))
+            <img src="{{ $biographyImageUrl }}" alt="{{ $biography->full_name }}" style="width:100%;aspect-ratio:4/5;object-fit:cover;">
+          @else
+            <div class="d-flex align-items-center justify-content-center" style="aspect-ratio:4/5;background:var(--c-cream-2);">
+              <div class="minimal-fallback light"><i class="bi bi-flower2"></i></div>
+            </div>
+          @endif
         </div>
       </div>
       <div class="col-lg-7" data-aos="fade-right">
@@ -148,10 +156,7 @@
       <div class="timeline-track row">
         @foreach($timeline as $i => $event)
           <div class="col timeline-item" data-aos="fade-up" data-aos-delay="{{ $i * 120 }}">
-            <div class="timeline-dot"><i class="bi {{ $event->icon }}"></i></div>
-            <div class="timeline-year">{{ $event->year }}</div>
-            <h6>{{ $event->title }}</h6>
-            <p>{{ $event->description }}</p>
+            @include('partials.timeline-item', ['event' => $event])
           </div>
         @endforeach
       </div>
@@ -163,10 +168,7 @@
         @foreach($timeline as $event)
           <div class="swiper-slide">
             <div class="timeline-item text-center bg-black bg-opacity-25 rounded-3 p-4">
-              <div class="timeline-dot"><i class="bi {{ $event->icon }}"></i></div>
-              <div class="timeline-year">{{ $event->year }}</div>
-              <h6>{{ $event->title }}</h6>
-              <p>{{ $event->description }}</p>
+              @include('partials.timeline-item', ['event' => $event])
             </div>
           </div>
         @endforeach
@@ -190,7 +192,7 @@
         @foreach($achievements as $i => $a)
           <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ ($i % 4) * 100 }}">
             <div class="gold-card">
-              <div class="icon-circle"><i class="bi {{ $a->icon }}"></i></div>
+              @include('partials.card-media', ['image' => Media::url($a->image), 'icon' => $a->icon, 'alt' => $a->title])
               @if($a->category)
                 <span class="badge badge-cat rounded-pill mb-2">{{ Categories::label($a->category) }}</span>
               @endif
@@ -293,7 +295,7 @@
         @foreach($initiatives as $i => $init)
           <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ ($i % 3) * 120 }}">
             <div class="gold-card">
-              <div class="icon-circle"><i class="bi {{ $init->icon }}"></i></div>
+              @include('partials.card-media', ['image' => Media::url($init->image), 'icon' => $init->icon, 'alt' => $init->title])
               <h5 class="fs-6 fw-bold">{{ $init->title }}</h5>
               <p class="small text-secondary">{{ Str::limit($init->summary, 100) }}</p>
               <a href="{{ route('initiatives.show', $init) }}" class="small fw-semibold" style="color:var(--c-gold)">
@@ -310,7 +312,9 @@
 </section>
 
 {{-- ============ QUOTE BANNER ============ --}}
-<section class="quote-banner">
+@php($quoteBannerImageUrl = Media::url($bannerQuote->image ?? null))
+<section class="quote-banner" @if($quoteBannerImageUrl) style="--quote-bg-image:url('{{ $quoteBannerImageUrl }}')" @endif>
+  @if($quoteBannerImageUrl)<div class="skyline"></div>@endif
   <div class="container-xl">
     <div class="quote-mark">”</div>
     <blockquote>
@@ -365,7 +369,11 @@
         @foreach($testimonials as $t)
           <div class="swiper-slide">
             <div class="testimonial-card h-100">
-              <i class="bi bi-quote"></i>
+              @if($testimonialImg = Media::url($t->image))
+                <img src="{{ $testimonialImg }}" alt="{{ $t->attributed_to }}" class="testimonial-avatar">
+              @else
+                <i class="bi bi-quote"></i>
+              @endif
               <p class="mt-2">{{ $t->quote_text }}</p>
               <h6 class="fw-bold mb-0 mt-3">{{ $t->attributed_to }}</h6>
               @if($t->attributed_role)<p class="small text-secondary">{{ $t->attributed_role }}</p>@endif
@@ -404,7 +412,8 @@
 </section>
 
 {{-- ============ LEGACY BANNER ============ --}}
-<section class="legacy-banner">
+@php($legacyBannerUrl = Media::url(Setting::get('legacy_banner_image')))
+<section class="legacy-banner" @if($legacyBannerUrl) style="--legacy-bg:url('{{ $legacyBannerUrl }}')" @endif>
   <div class="container-xl">
     <span class="section-kicker" style="color:var(--c-gold-light)">إلى الأبد</span>
     <h2 class="mt-2">يبقى الأثر .. حين يرحل العطاء</h2>

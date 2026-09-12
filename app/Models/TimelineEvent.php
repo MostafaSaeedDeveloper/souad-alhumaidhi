@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TimelineEvent extends Model
 {
     protected $fillable = [
-        'year', 'title', 'description', 'icon', 'source_name', 'source_url',
+        'year', 'title', 'description', 'icon', 'image', 'source_name', 'source_url',
         'is_verified', 'sort_order', 'status',
     ];
 

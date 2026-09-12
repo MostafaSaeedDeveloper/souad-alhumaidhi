@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
     protected $fillable = [
-        'quote_text', 'attributed_to', 'attributed_role', 'type', 'context',
+        'quote_text', 'image', 'attributed_to', 'attributed_role', 'type', 'context',
         'source_name', 'source_url', 'is_verified', 'is_featured', 'sort_order', 'status',
     ];
 

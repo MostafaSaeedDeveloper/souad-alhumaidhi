@@ -2,9 +2,40 @@
 @php($title = 'الإعدادات')
 
 @section('content')
-<form method="POST" action="{{ route('admin.settings.update') }}" class="stat-card">
+<form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data" class="stat-card">
   @csrf
   @method('PUT')
+
+  <h6 class="fw-bold mb-3">صور الواجهة الرئيسية</h6>
+  <p class="small text-secondary">يمكن رفع الصور من هنا مباشرة، أو وضع الملفات يدويًا داخل <code>storage/app/public/media/souad/</code> بالأسماء: <code>hero-portrait.jpg</code>، <code>hero-bg.jpg</code>، <code>legacy-banner.jpg</code> — ستظهر تلقائيًا دون أي تعديل إضافي.</p>
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <label class="form-label">صورة الـ Hero الأساسية (بورتريه)</label>
+      <input type="file" name="hero_portrait_image" class="form-control" accept="image/*">
+      @if(\App\Support\Media::url($settings['hero_portrait_image'] ?? null))
+        <img src="{{ \App\Support\Media::url($settings['hero_portrait_image']) }}" class="mt-2 rounded" style="max-width:120px;">
+      @endif
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">صورة خلفية الـ Hero (باهتة)</label>
+      <input type="file" name="hero_bg_image" class="form-control" accept="image/*">
+      @if(\App\Support\Media::url($settings['hero_bg_image'] ?? null))
+        <img src="{{ \App\Support\Media::url($settings['hero_bg_image']) }}" class="mt-2 rounded" style="max-width:120px;">
+      @endif
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">صورة بانر "يبقى الأثر"</label>
+      <input type="file" name="legacy_banner_image" class="form-control" accept="image/*">
+      @if(\App\Support\Media::url($settings['legacy_banner_image'] ?? null))
+        <img src="{{ \App\Support\Media::url($settings['legacy_banner_image']) }}" class="mt-2 rounded" style="max-width:120px;">
+      @endif
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">موضع صورة الـ Hero (object-position)</label>
+      <input type="text" name="hero_object_position" value="{{ old('hero_object_position', $settings['hero_object_position'] ?? 'top center') }}" class="form-control" placeholder="top center">
+      <div class="form-text">مثال: <code>top center</code> أو <code>50% 20%</code> لضبط الجزء الظاهر من الصورة.</div>
+    </div>
+  </div>
 
   <h6 class="fw-bold mb-3">محتوى الواجهة الرئيسية</h6>
   <div class="row g-3 mb-4">

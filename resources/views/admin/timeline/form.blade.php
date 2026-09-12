@@ -2,7 +2,7 @@
 @php($title = $item->exists ? 'تعديل محطة' : 'إضافة محطة')
 
 @section('content')
-<form method="POST" action="{{ $item->exists ? route('admin.timeline.update', $item) : route('admin.timeline.store') }}" class="stat-card">
+<form method="POST" action="{{ $item->exists ? route('admin.timeline.update', $item) : route('admin.timeline.store') }}" enctype="multipart/form-data" class="stat-card">
   @csrf
   @if($item->exists) @method('PUT') @endif
   <div class="row g-3">
@@ -21,6 +21,11 @@
     <div class="col-md-4">
       <label class="form-label">أيقونة Bootstrap Icons</label>
       <input type="text" name="icon" value="{{ old('icon', $item->icon) }}" class="form-control" placeholder="bi-flag">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">صورة اختيارية للحدث</label>
+      <input type="file" name="image" class="form-control" accept="image/*">
+      @if($item->image)<div class="small text-secondary mt-1">توجد صورة محفوظة حاليًا.</div>@endif
     </div>
     <div class="col-md-4">
       <label class="form-label">اسم المصدر</label>

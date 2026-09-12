@@ -2,8 +2,10 @@
 
 @php
     use Illuminate\Support\Str;
+    use App\Support\Media;
     $title = 'السيرة الذاتية';
     $description = Str::limit($biography->intro, 155);
+    $biographyImageUrl = Media::url($biography->image);
 @endphp
 
 @push('schema')
@@ -33,11 +35,17 @@
     <div class="row gy-5 align-items-start">
       <div class="col-lg-4" data-aos="fade-left">
         <div class="bio-portrait sticky-top" style="top:100px;">
-          <div class="portrait-placeholder light" style="aspect-ratio:4/5;">
-            <i class="bi bi-flower2" style="font-size:4rem;"></i>
-          </div>
+          @if($biographyImageUrl)
+            <img src="{{ $biographyImageUrl }}" alt="{{ $biography->full_name }}" style="width:100%;aspect-ratio:4/5;object-fit:cover;">
+          @else
+            <div class="d-flex align-items-center justify-content-center" style="aspect-ratio:4/5;background:var(--c-cream-2);">
+              <div class="minimal-fallback light"><i class="bi bi-flower2"></i></div>
+            </div>
+          @endif
         </div>
-        <p class="notice-source text-center mt-2">لا تتوفر صورة موثقة الحقوق للنشر حاليًا</p>
+        @unless($biographyImageUrl)
+          <p class="notice-source text-center mt-2">لا تتوفر صورة موثقة الحقوق للنشر حاليًا</p>
+        @endunless
         <div class="border rounded-3 p-3 mt-4" style="border-color:var(--c-border)!important">
           <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
             <li><strong>الاسم الكامل:</strong> {{ $biography->full_name }}</li>
@@ -67,7 +75,7 @@
             @foreach($timeline as $event)
               <div class="col-md-4">
                 <div class="gold-card h-100">
-                  <div class="icon-circle"><i class="bi {{ $event->icon }}"></i></div>
+                  @include('partials.card-media', ['image' => Media::url($event->image), 'icon' => $event->icon, 'alt' => $event->title])
                   <div class="fw-bold" style="color:var(--c-gold)">{{ $event->year }}</div>
                   <h6 class="fw-bold">{{ $event->title }}</h6>
                   <p class="small text-secondary mb-0">{{ $event->description }}</p>

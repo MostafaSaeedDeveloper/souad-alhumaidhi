@@ -2,8 +2,10 @@
 
 @php
     use App\Support\Categories;
+    use App\Support\Media;
     $title = $achievement->title;
     $description = \Illuminate\Support\Str::limit($achievement->summary, 155);
+    $achievementImageUrl = Media::url($achievement->image);
 @endphp
 
 @push('schema')
@@ -30,6 +32,9 @@
   <div class="container-xl">
     <div class="row gy-5">
       <div class="col-lg-8">
+        @if($achievementImageUrl)
+          <img src="{{ $achievementImageUrl }}" alt="{{ $achievement->title }}" class="w-100 rounded-3 mb-4" style="aspect-ratio:16/9;object-fit:cover;">
+        @endif
         <p class="lead text-secondary">{{ $achievement->summary }}</p>
         @if($achievement->content)
           <div class="text-secondary" style="white-space:pre-line">{{ $achievement->content }}</div>

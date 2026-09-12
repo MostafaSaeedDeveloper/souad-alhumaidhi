@@ -2,6 +2,7 @@
 
 @php
     use App\Support\Categories;
+    use App\Support\Media;
     use Illuminate\Support\Str;
     $title = 'الإنجازات';
     $description = 'إنجازات موثقة لسيدة الأعمال سعاد الحميضي في عالم المال والاستثمار والعقار.';
@@ -22,7 +23,7 @@
         @foreach($achievements as $a)
           <div class="col-md-6 col-lg-4" data-aos="fade-up">
             <div class="gold-card h-100">
-              <div class="icon-circle"><i class="bi {{ $a->icon }}"></i></div>
+              @include('partials.card-media', ['image' => Media::url($a->image), 'icon' => $a->icon, 'alt' => $a->title])
               @if($a->category)<span class="badge badge-cat rounded-pill mb-2">{{ Categories::label($a->category) }}</span>@endif
               @if($a->year)<div class="small fw-bold" style="color:var(--c-gold)">{{ $a->year }}</div>@endif
               <h5 class="fs-6 fw-bold">{{ $a->title }}</h5>

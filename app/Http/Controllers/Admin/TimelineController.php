@@ -23,7 +23,11 @@ class TimelineController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        TimelineEvent::create($this->validated($request));
+        $data = $this->validated($request);
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('timeline', 'public');
+        }
+        TimelineEvent::create($data);
 
         return redirect()->route('admin.timeline.index')->with('status', 'تمت الإضافة بنجاح.');
     }
@@ -35,7 +39,11 @@ class TimelineController extends Controller
 
     public function update(Request $request, TimelineEvent $timeline): RedirectResponse
     {
-        $timeline->update($this->validated($request));
+        $data = $this->validated($request);
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('timeline', 'public');
+        }
+        $timeline->update($data);
 
         return redirect()->route('admin.timeline.index')->with('status', 'تم التحديث بنجاح.');
     }
@@ -54,12 +62,14 @@ class TimelineController extends Controller
             'title' => ['required', 'string', 'max:200'],
             'description' => ['nullable', 'string'],
             'icon' => ['nullable', 'string', 'max:50'],
+            'image' => ['nullable', 'image', 'max:4096'],
             'source_name' => ['nullable', 'string', 'max:150'],
             'source_url' => ['nullable', 'url', 'max:255'],
             'is_verified' => ['sometimes', 'boolean'],
             'sort_order' => ['nullable', 'integer'],
             'status' => ['required', 'in:draft,published'],
         ]);
+        unset($data['image']);
         $data['is_verified'] = $request->boolean('is_verified');
         $data['icon'] = $data['icon'] ?: 'bi-flag';
         $data['sort_order'] = $data['sort_order'] ?? 0;

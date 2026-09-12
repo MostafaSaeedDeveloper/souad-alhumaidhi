@@ -23,7 +23,11 @@ class QuoteController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        Quote::create($this->validated($request));
+        $data = $this->validated($request);
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('quotes', 'public');
+        }
+        Quote::create($data);
 
         return redirect()->route('admin.quotes.index')->with('status', 'تمت الإضافة بنجاح.');
     }
@@ -35,7 +39,11 @@ class QuoteController extends Controller
 
     public function update(Request $request, Quote $quote): RedirectResponse
     {
-        $quote->update($this->validated($request));
+        $data = $this->validated($request);
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('quotes', 'public');
+        }
+        $quote->update($data);
 
         return redirect()->route('admin.quotes.index')->with('status', 'تم التحديث بنجاح.');
     }
@@ -51,6 +59,7 @@ class QuoteController extends Controller
     {
         $data = $request->validate([
             'quote_text' => ['required', 'string'],
+            'image' => ['nullable', 'image', 'max:4096'],
             'attributed_to' => ['nullable', 'string', 'max:150'],
             'attributed_role' => ['nullable', 'string', 'max:150'],
             'type' => ['required', 'in:her_quote,testimonial,general'],
@@ -62,6 +71,7 @@ class QuoteController extends Controller
             'sort_order' => ['nullable', 'integer'],
             'status' => ['required', 'in:draft,published'],
         ]);
+        unset($data['image']);
         $data['is_verified'] = $request->boolean('is_verified');
         $data['is_featured'] = $request->boolean('is_featured');
         $data['sort_order'] = $data['sort_order'] ?? 0;

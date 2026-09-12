@@ -2,13 +2,18 @@
 @php($title = $item->exists ? 'تعديل اقتباس' : 'إضافة اقتباس')
 
 @section('content')
-<form method="POST" action="{{ $item->exists ? route('admin.quotes.update', $item) : route('admin.quotes.store') }}" class="stat-card">
+<form method="POST" action="{{ $item->exists ? route('admin.quotes.update', $item) : route('admin.quotes.store') }}" enctype="multipart/form-data" class="stat-card">
   @csrf
   @if($item->exists) @method('PUT') @endif
   <div class="row g-3">
     <div class="col-12">
       <label class="form-label">نص الاقتباس *</label>
       <textarea name="quote_text" rows="3" class="form-control" required>{{ old('quote_text', $item->quote_text) }}</textarea>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">صورة اختيارية (شخصية أو خلفية)</label>
+      <input type="file" name="image" class="form-control" accept="image/*">
+      @if($item->image)<div class="small text-secondary mt-1">توجد صورة محفوظة حاليًا.</div>@endif
     </div>
     <div class="col-md-6">
       <label class="form-label">المنسوب إليه</label>

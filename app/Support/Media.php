@@ -8,8 +8,10 @@ use Illuminate\Support\Str;
 
 class Media
 {
+    public const DISK = 'uploads';
+
     /**
-     * Resolve a public-disk relative path to a URL, but only if the file
+     * Resolve an "uploads" disk relative path to a URL, but only if the file
      * actually exists on disk. Returns null otherwise so views can fall
      * back to a minimal placeholder instead of a broken <img>.
      */
@@ -19,17 +21,17 @@ class Media
             return null;
         }
 
-        return Storage::disk('public')->exists($path) ? Storage::url($path) : null;
+        return Storage::disk(self::DISK)->exists($path) ? Storage::disk(self::DISK)->url($path) : null;
     }
 
     /**
      * Zero-config fallback: any real image file dropped directly into
-     * storage/app/public/media/souad/gallery/ shows up as a lightweight
+     * public/uploads/media/souad/gallery/ shows up as a lightweight
      * gallery entry, with no admin entry or code change required.
      */
     public static function galleryFolderItems(): Collection
     {
-        return collect(Storage::disk('public')->files('media/souad/gallery'))
+        return collect(Storage::disk(self::DISK)->files('media/souad/gallery'))
             ->filter(fn ($path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp']))
             ->values()
             ->map(fn ($path) => (object) [

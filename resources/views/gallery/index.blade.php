@@ -29,8 +29,8 @@
     @if($galleryItems->isNotEmpty())
       <div class="gallery-grid">
         @foreach($galleryItems as $g)
-          <a href="{{ Storage::url($g->image) }}" class="glightbox" data-glightbox="title: {{ $g->caption }}">
-            <img src="{{ Storage::url($g->image) }}" alt="{{ $g->alt }}" loading="lazy">
+          <a href="{{ \App\Support\Media::url($g->image) }}" class="glightbox" data-glightbox="title: {{ $g->caption }}">
+            <img src="{{ \App\Support\Media::url($g->image) }}" alt="{{ $g->alt }}" loading="lazy">
             <span class="overlay">{{ $g->caption }}</span>
           </a>
         @endforeach

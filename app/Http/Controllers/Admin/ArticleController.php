@@ -27,7 +27,7 @@ class ArticleController extends Controller
         $data = $this->validated($request);
         $data['slug'] = $this->uniqueSlug($data['title']);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('articles', 'public');
+            $data['image'] = $request->file('image')->store('articles', 'uploads');
         }
         Article::create($data);
 
@@ -43,7 +43,7 @@ class ArticleController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('articles', 'public');
+            $data['image'] = $request->file('image')->store('articles', 'uploads');
         }
         $article->update($data);
 

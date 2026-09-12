@@ -25,7 +25,7 @@ class QuoteController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('quotes', 'public');
+            $data['image'] = $request->file('image')->store('quotes', 'uploads');
         }
         Quote::create($data);
 
@@ -41,7 +41,7 @@ class QuoteController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('quotes', 'public');
+            $data['image'] = $request->file('image')->store('quotes', 'uploads');
         }
         $quote->update($data);
 

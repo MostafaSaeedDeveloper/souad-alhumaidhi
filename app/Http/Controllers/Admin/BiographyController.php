@@ -39,7 +39,7 @@ class BiographyController extends Controller
         $data['is_verified'] = $request->boolean('is_verified');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('biography', 'public');
+            $data['image'] = $request->file('image')->store('biography', 'uploads');
         }
 
         $biography = Biography::firstOrNew();

@@ -63,7 +63,7 @@ class SettingController extends Controller
         foreach (self::IMAGE_KEYS as $key => $filenamePrefix) {
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
-                $path = $file->storeAs('media/souad', $filenamePrefix.'.'.$file->extension(), 'public');
+                $path = $file->storeAs('media/souad', $filenamePrefix.'.'.$file->extension(), 'uploads');
                 Setting::updateOrCreate(['key' => $key], [
                     'value' => $path,
                     'group' => 'hero',

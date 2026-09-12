@@ -99,8 +99,8 @@
           <h3 class="mt-5 mb-3">صور أرشيفية</h3>
           <div class="gallery-grid">
             @foreach($archiveImages as $g)
-              <a href="{{ \Illuminate\Support\Facades\Storage::url($g->image) }}" class="glightbox">
-                <img src="{{ \Illuminate\Support\Facades\Storage::url($g->image) }}" alt="{{ $g->alt }}" loading="lazy">
+              <a href="{{ Media::url($g->image) }}" class="glightbox">
+                <img src="{{ Media::url($g->image) }}" alt="{{ $g->alt }}" loading="lazy">
               </a>
             @endforeach
           </div>

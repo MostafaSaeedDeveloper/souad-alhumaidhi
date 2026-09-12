@@ -9,11 +9,21 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
-php artisan storage:link
 php artisan serve
 ```
 
 يعمل المشروع افتراضيًا على SQLite (بدون أي إعداد إضافي). للتبديل إلى MySQL غيّر متغيرات `DB_*` في `.env` إلى بيانات اتصال MySQL ثم أعد تشغيل `php artisan migrate --seed`.
+
+### رفع الصور
+
+كل الصور (من لوحة الإدارة أو الموضوعة يدويًا) تُحفظ مباشرة داخل `public/uploads/` — **لا حاجة لتشغيل `storage:link`**، فالمجلد جزء من الـ public web root من الأساس، وهذا يتجنب مشاكل الاستضافات التي لا تدعم الروابط الرمزية (symlinks). لرفع صور الهيرو/الخلفية/بانر "يبقى الأثر" مباشرة دون المرور بلوحة الإدارة، ضع الملفات في:
+
+```
+public/uploads/media/souad/hero-portrait.jpg
+public/uploads/media/souad/hero-bg.jpg
+public/uploads/media/souad/legacy-banner.jpg
+public/uploads/media/souad/gallery/*.jpg   (أي عدد من الصور، أي اسم — تظهر تلقائيًا في المعرض)
+```
 
 ## الدخول إلى لوحة الإدارة
 

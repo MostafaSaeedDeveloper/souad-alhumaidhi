@@ -10,7 +10,7 @@
       <label class="form-label">الصورة {{ $item->exists ? '' : '*' }}</label>
       <input type="file" name="image" class="form-control" accept="image/*" {{ $item->exists ? '' : 'required' }}>
       @if($item->image)
-        <img src="{{ \Illuminate\Support\Facades\Storage::url($item->image) }}" class="mt-2 rounded" style="max-width:160px;">
+        <img src="{{ \App\Support\Media::url($item->image) }}" class="mt-2 rounded" style="max-width:160px;">
       @endif
     </div>
     <div class="col-md-6">

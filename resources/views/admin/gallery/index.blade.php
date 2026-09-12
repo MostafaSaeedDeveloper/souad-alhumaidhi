@@ -10,7 +10,7 @@
   @forelse($items as $item)
     <div class="col-md-3">
       <div class="stat-card p-2">
-        <img src="{{ \Illuminate\Support\Facades\Storage::url($item->image) }}" class="w-100 rounded mb-2" style="aspect-ratio:1/1;object-fit:cover;" alt="{{ $item->alt }}">
+        <img src="{{ \App\Support\Media::url($item->image) }}" class="w-100 rounded mb-2" style="aspect-ratio:1/1;object-fit:cover;" alt="{{ $item->alt }}">
         <p class="small mb-1">{{ $item->caption }}</p>
         <span class="badge bg-{{ $item->status === 'published' ? 'success' : 'secondary' }}">{{ $item->status }}</span>
         <div class="d-flex justify-content-between mt-2">

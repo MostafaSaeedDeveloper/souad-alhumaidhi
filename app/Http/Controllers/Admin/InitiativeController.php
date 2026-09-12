@@ -27,7 +27,7 @@ class InitiativeController extends Controller
         $data = $this->validated($request);
         $data['slug'] = $this->uniqueSlug($data['title']);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('initiatives', 'uploads');
+            $data['image'] = \App\Support\Media::store($request->file('image'), 'initiatives');
         }
         Initiative::create($data);
 
@@ -43,7 +43,7 @@ class InitiativeController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('initiatives', 'uploads');
+            $data['image'] = \App\Support\Media::store($request->file('image'), 'initiatives');
         }
         $initiative->update($data);
 

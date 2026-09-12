@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -25,14 +26,31 @@ class Media
     }
 
     /**
+     * Save an upload flat at the uploads disk root (no subdirectory), so PHP never needs to
+     * create a directory at request time. Some hosts leave public/uploads itself writable but
+     * deny the web server permission to create new subfolders inside it — storing everything at
+     * one level avoids that failure mode entirely. Uniqueness comes from the prefix + a random
+     * suffix, not a folder.
+     */
+    public static function store(UploadedFile $file, string $prefix): string
+    {
+        $filename = $prefix.'-'.Str::random(12).'.'.$file->extension();
+
+        return $file->storeAs('', $filename, self::DISK);
+    }
+
+    /**
      * Zero-config fallback: any real image file dropped directly into
-     * public/uploads/media/souad/gallery/ shows up as a lightweight
-     * gallery entry, with no admin entry or code change required.
+     * public/uploads/ with a "gallery-" filename prefix (e.g. gallery-1.jpg)
+     * shows up as a lightweight gallery entry — no subfolder, no admin
+     * entry, no code change required. Flat on purpose: some hosts allow
+     * writing into public/uploads/ itself but deny creating subfolders in it.
      */
     public static function galleryFolderItems(): Collection
     {
-        return collect(Storage::disk(self::DISK)->files('media/souad/gallery'))
-            ->filter(fn ($path) => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp']))
+        return collect(Storage::disk(self::DISK)->files())
+            ->filter(fn ($path) => str_starts_with(basename($path), 'gallery-')
+                && in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp']))
             ->values()
             ->map(fn ($path) => (object) [
                 'image' => $path,

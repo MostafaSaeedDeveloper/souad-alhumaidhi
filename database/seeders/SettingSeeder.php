@@ -29,14 +29,15 @@ class SettingSeeder extends Seeder
             Setting::updateOrCreate(['key' => $key], ['value' => $value, 'type' => 'text', 'group' => 'general']);
         }
 
-        // Conventional filenames under storage/app/public/media/souad/ — dropping a real file at
-        // any of these exact paths (via admin upload or a direct file copy) makes it appear on the
-        // site immediately, with no further code changes. These rows are only created if missing,
-        // so re-running seeders never overwrites an image already set via the admin.
+        // Conventional filenames directly under public/uploads/ (flat, no subfolder — some hosts
+        // allow writing into public/uploads/ but deny creating new subfolders inside it) — dropping
+        // a real file at any of these exact paths (via admin upload or a direct file copy) makes it
+        // appear on the site immediately, with no further code changes. These rows are only created
+        // if missing, so re-running seeders never overwrites an image already set via the admin.
         $imageDefaults = [
-            'hero_portrait_image' => 'media/souad/hero-portrait.jpg',
-            'hero_bg_image' => 'media/souad/hero-bg.jpg',
-            'legacy_banner_image' => 'media/souad/legacy-banner.jpg',
+            'hero_portrait_image' => 'hero-portrait.jpg',
+            'hero_bg_image' => 'hero-bg.jpg',
+            'legacy_banner_image' => 'legacy-banner.jpg',
         ];
 
         foreach ($imageDefaults as $key => $path) {

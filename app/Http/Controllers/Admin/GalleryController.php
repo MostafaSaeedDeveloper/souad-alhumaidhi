@@ -24,7 +24,7 @@ class GalleryController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request, true);
-        $data['image'] = $request->file('image')->store('gallery', 'uploads');
+        $data['image'] = \App\Support\Media::store($request->file('image'), 'gallery');
         GalleryItem::create($data);
 
         return redirect()->route('admin.gallery.index')->with('status', 'تمت الإضافة بنجاح.');
@@ -39,7 +39,7 @@ class GalleryController extends Controller
     {
         $data = $this->validated($request, false);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('gallery', 'uploads');
+            $data['image'] = \App\Support\Media::store($request->file('image'), 'gallery');
         }
         $gallery->update($data);
 

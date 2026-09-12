@@ -27,7 +27,7 @@ class AchievementController extends Controller
         $data = $this->validated($request);
         $data['slug'] = $this->uniqueSlug($data['title']);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('achievements', 'uploads');
+            $data['image'] = \App\Support\Media::store($request->file('image'), 'achievements');
         }
         Achievement::create($data);
 
@@ -43,7 +43,7 @@ class AchievementController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('achievements', 'uploads');
+            $data['image'] = \App\Support\Media::store($request->file('image'), 'achievements');
         }
         $achievement->update($data);
 

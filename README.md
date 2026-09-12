@@ -16,18 +16,19 @@ php artisan serve
 
 ### رفع الصور
 
-كل الصور (من لوحة الإدارة أو الموضوعة يدويًا) تُحفظ مباشرة داخل `public/uploads/` — **لا حاجة لتشغيل `storage:link`**، فالمجلد جزء من الـ public web root من الأساس، وهذا يتجنب مشاكل الاستضافات التي لا تدعم الروابط الرمزية (symlinks). لرفع صور الهيرو/الخلفية/بانر "يبقى الأثر" مباشرة دون المرور بلوحة الإدارة، ضع الملفات في:
+كل الصور (من لوحة الإدارة أو الموضوعة يدويًا) تُحفظ **بشكل مسطّح** مباشرة داخل `public/uploads/` بدون أي مجلدات فرعية — لا حاجة لتشغيل `storage:link` (المجلد جزء من الـ public web root من الأساس)، ولا حاجة لأي صلاحية "إنشاء مجلدات" على السيرفر (بعض الاستضافات تسمح بالكتابة داخل `public/uploads/` نفسه لكن تمنع إنشاء مجلدات فرعية جديدة بداخله — التخزين المسطّح يتجنب هذه المشكلة تمامًا). لرفع صور الهيرو/الخلفية/بانر "يبقى الأثر"/السيرة الذاتية مباشرة دون المرور بلوحة الإدارة، ضع الملفات في:
 
 ```
-public/uploads/media/souad/hero-portrait.jpg
-public/uploads/media/souad/hero-bg.jpg
-public/uploads/media/souad/legacy-banner.jpg
-public/uploads/media/souad/gallery/*.jpg   (أي عدد من الصور، أي اسم — تظهر تلقائيًا في المعرض)
+public/uploads/hero-portrait.jpg
+public/uploads/hero-bg.jpg
+public/uploads/legacy-banner.jpg
+public/uploads/biography.jpg
+public/uploads/gallery-*.jpg   (أي عدد، بادئة الاسم "gallery-" إلزامية — تظهر تلقائيًا في المعرض)
 ```
 
 ### صلاحيات الرفع على سيرفر حقيقي (VPS / Shared Hosting)
 
-عند النشر على سيرفر حقيقي، لازم يكون مجلد `public/uploads` (بالإضافة إلى `storage` و `bootstrap/cache` كالمعتاد في أي مشروع Laravel) قابلًا للكتابة من قِبل يوزر الويب سيرفر (غالبًا `www-data` على Ubuntu/Debian)، وإلا سيظهر خطأ `UnableToCreateDirectory` عند أول محاولة رفع صورة:
+عند النشر على سيرفر حقيقي، لازم يكون مجلد `public/uploads` (بالإضافة إلى `storage` و `bootstrap/cache` كالمعتاد في أي مشروع Laravel) قابلًا للكتابة من قِبل يوزر الويب سيرفر (غالبًا `www-data` على Ubuntu/Debian)، وإلا سيظهر خطأ `UnableToCreateDirectory` أو `UnableToWriteFile` عند أول محاولة رفع صورة:
 
 ```bash
 cd /path/to/project

@@ -25,7 +25,7 @@ class MediaOutletController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->store('outlets', 'uploads');
+            $data['logo'] = \App\Support\Media::store($request->file('logo'), 'outlets');
         }
         MediaOutlet::create($data);
 
@@ -41,7 +41,7 @@ class MediaOutletController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->store('outlets', 'uploads');
+            $data['logo'] = \App\Support\Media::store($request->file('logo'), 'outlets');
         }
         $outlet->update($data);
 

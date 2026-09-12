@@ -25,7 +25,7 @@ class TimelineController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('timeline', 'uploads');
+            $data['image'] = \App\Support\Media::store($request->file('image'), 'timeline');
         }
         TimelineEvent::create($data);
 
@@ -41,7 +41,7 @@ class TimelineController extends Controller
     {
         $data = $this->validated($request);
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('timeline', 'uploads');
+            $data['image'] = \App\Support\Media::store($request->file('image'), 'timeline');
         }
         $timeline->update($data);
 

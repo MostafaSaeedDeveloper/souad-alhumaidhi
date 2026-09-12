@@ -7,7 +7,7 @@
   @method('PUT')
 
   <h6 class="fw-bold mb-3">صور الواجهة الرئيسية</h6>
-  <p class="small text-secondary">يمكن رفع الصور من هنا مباشرة، أو وضع الملفات يدويًا داخل <code>public/uploads/media/souad/</code> بالأسماء: <code>hero-portrait.jpg</code>، <code>hero-bg.jpg</code>، <code>legacy-banner.jpg</code> — ستظهر تلقائيًا دون أي تعديل إضافي ودون الحاجة لأمر storage:link.</p>
+  <p class="small text-secondary">يمكن رفع الصور من هنا مباشرة، أو وضع الملفات يدويًا داخل <code>public/uploads/</code> مباشرة (بدون مجلدات فرعية) بالأسماء: <code>hero-portrait.jpg</code>، <code>hero-bg.jpg</code>، <code>legacy-banner.jpg</code>، <code>biography.jpg</code> — ستظهر تلقائيًا دون أي تعديل إضافي ودون الحاجة لأمر storage:link.</p>
   <div class="row g-3 mb-4">
     <div class="col-md-4">
       <label class="form-label">صورة الـ Hero الأساسية (بورتريه)</label>

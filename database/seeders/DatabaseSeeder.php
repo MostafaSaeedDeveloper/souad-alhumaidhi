@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -11,15 +10,25 @@ class DatabaseSeeder extends Seeder
     use WithoutModelEvents;
 
     /**
-     * Seed the application's database.
+     * Seed the application's database with the documented, sourced content
+     * of the memorial site. Order matters: SourcesSeeder must run first so
+     * later seeders can attach a source_id to every fact.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            SourcesSeeder::class,
+            SiteSettingsSeeder::class,
+            BiographySeeder::class,
+            TimelineSeeder::class,
+            AchievementsSeeder::class,
+            AwardsSeeder::class,
+            PositionsSeeder::class,
+            InitiativesSeeder::class,
+            QuotesSeeder::class,
+            MediaSeeder::class,
+            GallerySeeder::class,
+            PressSeeder::class,
         ]);
     }
 }

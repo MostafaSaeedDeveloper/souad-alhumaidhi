@@ -1,0 +1,546 @@
+/* ==========================================================================
+   سعاد الحميضي — موقع تكريمي
+   Fonts
+   ========================================================================== */
+@font-face {
+    font-family: 'Cairo';
+    src: url('../fonts/cairo-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cairo';
+    src: url('../fonts/cairo-600.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cairo';
+    src: url('../fonts/cairo-700.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('../fonts/notokufi-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('../fonts/notokufi-700.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+:root {
+    --color-charcoal: #17140f;
+    --color-charcoal-2: #201b14;
+    --color-ivory: #faf6ee;
+    --color-ivory-2: #f3ecdd;
+    --color-beige: #e8dcc4;
+    --color-beige-dark: #c9b48c;
+    --color-gold: #b7913a;
+    --color-gold-light: #d4b872;
+    --color-gold-deep: #8f6f26;
+    --color-text-dark: #2a2418;
+    --color-text-muted: #6b6151;
+    --shadow-soft: 0 10px 40px rgba(23, 20, 15, 0.08);
+    --shadow-card: 0 6px 24px rgba(23, 20, 15, 0.06);
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --font-body: 'Cairo', 'Noto Kufi Arabic', system-ui, sans-serif;
+    --font-display: 'Noto Kufi Arabic', 'Cairo', system-ui, sans-serif;
+    --container-max: 1280px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-ivory);
+    color: var(--color-text-dark);
+    overflow-x: hidden;
+    line-height: 1.8;
+}
+
+img { max-width: 100%; height: auto; }
+
+a { text-decoration: none; color: inherit; }
+
+.container-xl-custom {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-inline: 1.25rem;
+}
+
+/* Gold ornamental divider */
+.gold-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+}
+.gold-divider::before,
+.gold-divider::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-light));
+}
+.gold-divider::after { background: linear-gradient(90deg, var(--color-gold-light), transparent); }
+
+.eyebrow {
+    font-size: .95rem;
+    letter-spacing: .04em;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+    color: var(--color-text-dark);
+    margin-bottom: .5rem;
+}
+
+.section-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 2.5rem;
+}
+
+.section-head { text-align: center; margin-bottom: 3rem; }
+
+.section {
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+.section-alt { background: var(--color-ivory-2); }
+.section-dark {
+    background: var(--color-charcoal);
+    color: var(--color-ivory);
+}
+.section-dark .section-title { color: var(--color-ivory); }
+.section-dark .section-subtitle { color: rgba(250,246,238,.65); }
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.site-header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 1000;
+    padding-block: 1.1rem;
+    background: linear-gradient(to bottom, rgba(23,20,15,.55), transparent);
+    transition: background-color .35s ease, padding .35s ease, box-shadow .35s ease;
+}
+.site-header.is-scrolled {
+    background: rgba(23, 20, 15, .94);
+    padding-block: .6rem;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(6px);
+}
+.site-header .navbar-brand-ar {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--color-ivory);
+    line-height: 1.1;
+}
+.site-header .navbar-brand-tagline {
+    display: block;
+    font-size: .72rem;
+    color: var(--color-gold-light);
+    font-weight: 400;
+    margin-top: .15rem;
+}
+.site-header .nav-link {
+    color: rgba(250,246,238,.85) !important;
+    font-weight: 600;
+    font-size: .95rem;
+    padding-inline: 1rem !important;
+    position: relative;
+}
+.site-header .nav-link.active,
+.site-header .nav-link:hover { color: var(--color-gold-light) !important; }
+.site-header .btn-gold-outline {
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold-light);
+    border-radius: 999px;
+    padding: .45rem 1.4rem;
+    font-size: .9rem;
+    font-weight: 600;
+}
+.site-header .btn-gold-outline:hover { background: var(--color-gold); color: var(--color-charcoal); }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn-gold {
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+    color: var(--color-charcoal);
+    border: none;
+    border-radius: 999px;
+    padding: .8rem 2rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-card);
+    transition: transform .25s ease, box-shadow .25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); color: var(--color-charcoal); }
+
+.btn-outline-cream {
+    border: 1px solid rgba(250,246,238,.5);
+    color: var(--color-ivory);
+    border-radius: 999px;
+    padding: .8rem 2rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    transition: all .25s ease;
+}
+.btn-outline-cream:hover { background: rgba(250,246,238,.12); color: var(--color-ivory); border-color: var(--color-gold-light); }
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background: radial-gradient(ellipse at 30% 20%, #2a2318 0%, var(--color-charcoal) 60%);
+    color: var(--color-ivory);
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 85% 15%, rgba(183,145,58,.18), transparent 45%),
+        radial-gradient(circle at 10% 85%, rgba(183,145,58,.12), transparent 50%);
+    pointer-events: none;
+}
+.hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: .07;
+    background-image: url('../img/pattern-arabesque.svg');
+    background-size: 420px;
+    background-repeat: repeat;
+    pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 2; padding-block: 6rem 3rem; }
+.hero-eyebrow {
+    color: var(--color-gold-light);
+    letter-spacing: .08em;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+.hero-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff, var(--color-gold-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: rgba(250,246,238,.85);
+    max-width: 620px;
+    margin-bottom: 1.75rem;
+}
+.hero-quote {
+    border-inline-start: 3px solid var(--color-gold);
+    padding-inline-start: 1.25rem;
+    font-size: 1.05rem;
+    color: var(--color-gold-light);
+    font-style: normal;
+    margin-bottom: 2.25rem;
+    max-width: 560px;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+.hero-visual {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0,0,0,.45);
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #3a3220, #17140f 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(212,184,114,.25);
+}
+.hero-visual .monogram {
+    font-family: var(--font-display);
+    font-size: 6rem;
+    color: rgba(212,184,114,.35);
+}
+.hero-visual-frame {
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(212,184,114,.35);
+    border-radius: calc(var(--radius-lg) - 6px);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Highlight bar
+   ========================================================================== */
+.highlight-bar {
+    background: var(--color-ivory-2);
+    border-bottom: 1px solid var(--color-beige);
+}
+.highlight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: .6rem;
+    padding-block: 2rem;
+}
+.highlight-item i {
+    font-size: 1.9rem;
+    color: var(--color-gold);
+}
+.highlight-item h3 { font-size: 1.05rem; font-weight: 700; margin: 0; }
+.highlight-item p { font-size: .85rem; color: var(--color-text-muted); margin: 0; }
+
+/* ==========================================================================
+   About
+   ========================================================================== */
+.about-portrait {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: linear-gradient(155deg, var(--color-beige), var(--color-ivory-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--color-beige-dark);
+}
+.about-portrait .monogram { font-family: var(--font-display); font-size: 5rem; color: var(--color-gold); }
+.about-quote-card {
+    background: var(--color-charcoal);
+    color: var(--color-ivory);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+}
+.about-quote-card .bi-quote { color: var(--color-gold); font-size: 1.8rem; }
+.about-quote-card p { font-size: 1.05rem; margin-block: 1rem 0; }
+.about-quote-card cite { color: var(--color-gold-light); font-style: normal; font-weight: 600; }
+
+/* ==========================================================================
+   Timeline
+   ========================================================================== */
+.timeline-scroll {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    padding-block: 1rem 2rem;
+    scroll-snap-type: x proximity;
+}
+.timeline-scroll::-webkit-scrollbar { height: 6px; }
+.timeline-scroll::-webkit-scrollbar-thumb { background: var(--color-beige-dark); border-radius: 3px; }
+.timeline-node {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+    text-align: center;
+    position: relative;
+}
+.timeline-node::after {
+    content: '';
+    position: absolute;
+    top: 26px;
+    inset-inline-start: 100%;
+    width: 2rem;
+    height: 1px;
+    background: var(--color-gold);
+}
+.timeline-node:last-child::after { display: none; }
+.timeline-node .node-dot {
+    width: 54px;
+    height: 54px;
+    margin-inline: auto 1rem;
+    border-radius: 50%;
+    background: var(--color-charcoal);
+    color: var(--color-gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--color-gold);
+}
+.timeline-node .node-year { font-weight: 700; color: var(--color-gold-deep); margin-block: .75rem .35rem; }
+.timeline-node .node-title { font-weight: 700; font-size: .98rem; margin-bottom: .35rem; }
+.timeline-node .node-desc { font-size: .85rem; color: var(--color-text-muted); }
+
+@media (max-width: 767px) {
+    .timeline-scroll { flex-direction: column; overflow: visible; }
+    .timeline-node { flex: 1 1 auto; text-align: start; display: flex; gap: 1rem; }
+    .timeline-node::after { display: none; }
+    .timeline-node .node-dot { margin-inline: 0; flex-shrink: 0; }
+}
+
+/* ==========================================================================
+   Cards (achievements / initiatives)
+   ========================================================================== */
+.gold-card {
+    background: #fff;
+    border: 1px solid var(--color-beige);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
+    height: 100%;
+    box-shadow: var(--shadow-card);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.gold-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-soft); }
+.gold-card i { font-size: 1.8rem; color: var(--color-gold); margin-bottom: 1rem; display: inline-block; }
+.gold-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem; }
+.gold-card p { font-size: .9rem; color: var(--color-text-muted); margin: 0; }
+
+/* ==========================================================================
+   Media / video cards
+   ========================================================================== */
+.media-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-bottom: 2.5rem; }
+.media-tabs button {
+    border: 1px solid var(--color-beige-dark);
+    background: transparent;
+    border-radius: 999px;
+    padding: .5rem 1.3rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+.media-tabs button.active { background: var(--color-gold); border-color: var(--color-gold); color: #fff; }
+.media-card { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); background: #fff; }
+.media-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: linear-gradient(155deg, var(--color-charcoal), #2c2618);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.media-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.media-thumb .play-btn {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(250,246,238,.9);
+    color: var(--color-charcoal);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+}
+.media-card .media-body { padding: 1rem 1.25rem; }
+.media-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .3rem; }
+.media-card .meta { font-size: .8rem; color: var(--color-text-muted); }
+
+/* ==========================================================================
+   Gallery
+   ========================================================================== */
+.gallery-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1/1;
+    background: linear-gradient(155deg, var(--color-beige), var(--color-ivory-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold-deep);
+}
+
+/* ==========================================================================
+   Press logos
+   ========================================================================== */
+.press-strip { display: flex; align-items: center; gap: 3rem; overflow-x: auto; padding-block: 1rem; }
+.press-logo {
+    flex: 0 0 auto;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    opacity: .75;
+    transition: opacity .2s ease;
+}
+.press-logo:hover { opacity: 1; color: var(--color-gold-deep); }
+
+/* ==========================================================================
+   Legacy section
+   ========================================================================== */
+.legacy-section {
+    position: relative;
+    background: linear-gradient(180deg, #201b14, #0f0d09);
+    color: var(--color-ivory);
+    text-align: center;
+    padding-block: 6rem;
+    overflow: hidden;
+}
+.legacy-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 100%, rgba(183,145,58,.25), transparent 60%);
+}
+.legacy-quote {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    max-width: 780px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+}
+.legacy-sub { position: relative; color: var(--color-gold-light); }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer { background: var(--color-charcoal); color: rgba(250,246,238,.75); padding-block: 3.5rem 1.5rem; }
+.site-footer h5 { color: var(--color-ivory); font-family: var(--font-display); }
+.site-footer a:hover { color: var(--color-gold-light); }
+.site-footer .footer-bottom { border-top: 1px solid rgba(250,246,238,.12); margin-top: 2rem; padding-top: 1.5rem; font-size: .85rem; text-align: center; }
+
+/* ==========================================================================
+   Misc
+   ========================================================================== */
+.badge-gold { background: rgba(183,145,58,.12); color: var(--color-gold-deep); border-radius: 999px; padding: .3rem .9rem; font-size: .8rem; font-weight: 600; }
+.skip-link {
+    position: absolute; right: -9999px; top: 0; background: var(--color-gold); color: #fff; padding: .75rem 1.5rem; z-index: 2000; border-radius: 0 0 8px 8px;
+}
+.skip-link:focus { right: 1rem; }
+:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}

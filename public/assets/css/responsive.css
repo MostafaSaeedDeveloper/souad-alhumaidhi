@@ -1,0 +1,16 @@
+@media (max-width: 991px) {
+    .hero { min-height: auto; padding-block: 7rem 3rem; }
+    .hero-visual { margin-top: 2.5rem; aspect-ratio: 16/10; }
+}
+
+@media (max-width: 767px) {
+    .section { padding-block: 3rem; }
+    .hero-actions .btn-gold,
+    .hero-actions .btn-outline-cream { width: 100%; justify-content: center; }
+    .press-strip { gap: 1.75rem; }
+}
+
+@media (max-width: 575px) {
+    .hero-name { font-size: 2.2rem; }
+    .container-xl-custom { padding-inline: 1rem; }
+}

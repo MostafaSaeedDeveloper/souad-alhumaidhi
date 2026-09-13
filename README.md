@@ -1,58 +1,46 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# سعاد الحميضي — موقع تكريمي
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+موقع تكريمي/أرشيفي (Memorial / Tribute) يوثّق سيرة الراحلة **سعاد حمد الصالح الحميضي** (1939 – 2017)، أول سيدة أعمال كويتية، مبنيّ على Laravel + Blade + MySQL/SQLite + Bootstrap 5 RTL + jQuery، بدون أي اعتماد على npm/Vite في وقت التشغيل.
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## التشغيل من الصفر
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
+cp .env.example .env
+php artisan key:generate
+# اضبط DB_CONNECTION في .env — mysql للإنتاج، أو اتركه sqlite للتجربة السريعة
+touch database/database.sqlite   # فقط إذا استخدمت sqlite
+php artisan migrate --seed
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+يعمل الموقع بالكامل بدون تشغيل أي أمر npm/yarn/pnpm/vite — جميع ملفات CSS/JS محمّلة محليًا في `public/assets`.
 
-## Contributing
+## بنية الأصول (بدون Node)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+public/assets/css/        app.css, animations.css, responsive.css
+public/assets/js/         app.js (jQuery + Vanilla JS)
+public/assets/fonts/      Cairo + Noto Kufi Arabic (woff2 محلي)
+public/assets/vendor/     Bootstrap 5 RTL, jQuery, Bootstrap Icons, AOS, GLightbox
+```
 
-## Code of Conduct
+## قاعدة البيانات والمصادر
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+كل معلومة منشورة في الموقع مرتبطة بسجل في جدول `sources`. راجع:
 
-## Security Vulnerabilities
+- `docs/research.md` — جدول كامل بالمصادر المستخدمة (ويكيبيديا، عكاظ، البيان، Kuwait Times، Arabian Business).
+- `docs/media-candidates.md` — صور/فيديوهات تم العثور عليها لكن لم تُنشر لعدم التأكد من حقوقها.
+- `/sources` داخل الموقع — نفس القائمة معروضة للزوار.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**ملاحظة شفافية مهمة**: لم يُعثر أثناء البحث على صورة شخصية أو فيديو لقاء موثّق الحقوق يمكن نشره قانونيًا للراحلة، لذا لا تحتوي صفحتا "الصور" و"اللقاءات والإعلام" على عناصر افتراضية أو ملفّقة، بل رسالة توضيحية وإحالة لصفحة المصادر. جداول `gallery_images` و`media_items` جاهزة بالكامل (نماذج، Migrations، صفحات، Lightbox، Modal فيديو، YouTubeService) لإضافة عناصر حقيقية فور توفر مصدر موثوق.
 
-## License
+## الاختبارات
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan test
+```
+
+## الأوامر المخصصة
+
+`app/Services/YouTubeService.php` يستخرج معرف الفيديو من روابط `youtu.be` / `watch` / `embed`، ويولّد رابط تضمين خاص بالخصوصية (`youtube-nocookie.com`)، تمهيدًا لإضافة لقاءات موثّقة لاحقًا دون تعديل بنية الموقع.

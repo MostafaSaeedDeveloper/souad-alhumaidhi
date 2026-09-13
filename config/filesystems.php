@@ -47,6 +47,18 @@ return [
             'report' => false,
         ],
 
+        // All admin-uploaded images (achievements, gallery, timeline, etc.) are stored here,
+        // directly inside the public web root — no `storage:link` symlink required at all,
+        // which avoids upload issues on hosts that don't support symlinks.
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/uploads',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

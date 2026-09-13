@@ -122,15 +122,16 @@ img{ max-width:100%; }
   position:absolute; inset:0;
   background-image: var(--hero-bg-image, none);
   background-size: cover; background-position: center;
-  opacity:.16; filter: grayscale(1);
+  opacity:.4; filter: grayscale(.55);
 }
 .hero-section .bg-fade{
   position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(27,23,18,.55), var(--c-charcoal) 85%);
+  background: linear-gradient(180deg, rgba(27,23,18,.35), var(--c-charcoal) 92%);
 }
 .hero-portrait-frame{
   position:relative; border:1px solid rgba(214,175,106,.4); border-radius: var(--radius-md);
   padding: .6rem; background: rgba(255,255,255,.02);
+  max-width: 380px; margin-inline: auto;
 }
 .hero-portrait-frame .portrait-inner{
   border-radius: calc(var(--radius-md) - 4px); overflow:hidden; aspect-ratio: 4/5;

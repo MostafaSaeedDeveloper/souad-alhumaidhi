@@ -103,6 +103,7 @@ img{ max-width:100%; }
 #siteHeader .nav-link:hover::after, #siteHeader .nav-link.active::after{ transform: scaleX(1); }
 #siteHeader .nav-link.active{ color: var(--c-gold-light) !important; }
 #siteHeader .icon-btn{ color:#efe7d6; font-size:1.15rem; }
+#mobileMenu .offcanvas-title{ color:#fff; }
 
 .brand-mark{ display:inline-flex; align-items:center; gap:.6rem; }
 .brand-mark svg{ width:38px; height:38px; }

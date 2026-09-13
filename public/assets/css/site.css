@@ -379,6 +379,10 @@ img{ max-width:100%; }
 @media (max-width: 991.98px){
   .hero-section{ padding-top:7.5rem; min-height:auto; }
   .section{ padding-block: 3.5rem; }
+  /* fade-left/fade-right push their pre-animation transform past the viewport edge on
+     narrow screens (columns stack full-width below this breakpoint anyway), causing a
+     horizontal scroll gap before the element scrolls into view and animates in. */
+  [data-aos^="fade-left"], [data-aos^="fade-right"]{ transform:none !important; }
 }
 @media (max-width: 575.98px){
   .hero-title{ font-size:1.9rem; }

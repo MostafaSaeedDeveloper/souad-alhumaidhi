@@ -121,7 +121,8 @@ img{ max-width:100%; }
 .hero-section .bg-portrait{
   position:absolute; inset:0;
   background-image: var(--hero-bg-image, none);
-  background-size: cover; background-position: center;
+  background-size: cover; background-repeat: no-repeat;
+  background-position: var(--hero-bg-position, center);
   opacity:.4; filter: grayscale(.55);
 }
 .hero-section .bg-fade{

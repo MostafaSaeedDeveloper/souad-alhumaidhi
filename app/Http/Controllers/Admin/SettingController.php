@@ -15,6 +15,7 @@ class SettingController extends Controller
         'hero_description' => 'general',
         'hero_quote' => 'general',
         'hero_object_position' => 'hero',
+        'hero_bg_object_position' => 'hero',
         'homepage_quote' => 'general',
         'cta_primary_text' => 'general',
         'cta_secondary_text' => 'general',

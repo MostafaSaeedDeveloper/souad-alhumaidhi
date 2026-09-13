@@ -29,12 +29,13 @@
     $heroPortraitUrl = Media::url(Setting::get('hero_portrait_image'));
     $heroBgUrl = Media::url(Setting::get('hero_bg_image'));
     $heroObjectPosition = Setting::get('hero_object_position', 'top center');
+    $heroBgObjectPosition = Setting::get('hero_bg_object_position', 'center top');
 @endphp
 
 @section('content')
 
 {{-- ============ HERO ============ --}}
-<section class="hero-section" @if($heroBgUrl) style="--hero-bg-image:url('{{ $heroBgUrl }}')" @endif>
+<section class="hero-section" @if($heroBgUrl) style="--hero-bg-image:url('{{ $heroBgUrl }}'); --hero-bg-position: {{ $heroBgObjectPosition }};" @endif>
   <div class="bg-portrait"></div>
   <div class="bg-fade"></div>
   <div class="container-xl position-relative">

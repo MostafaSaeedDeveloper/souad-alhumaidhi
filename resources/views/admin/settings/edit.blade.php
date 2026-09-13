@@ -35,6 +35,11 @@
       <input type="text" name="hero_object_position" value="{{ old('hero_object_position', $settings['hero_object_position'] ?? 'top center') }}" class="form-control" placeholder="top center">
       <div class="form-text">مثال: <code>top center</code> أو <code>50% 20%</code> لضبط الجزء الظاهر من الصورة.</div>
     </div>
+    <div class="col-md-6">
+      <label class="form-label">موضع صورة خلفية الـ Hero الباهتة (background-position)</label>
+      <input type="text" name="hero_bg_object_position" value="{{ old('hero_bg_object_position', $settings['hero_bg_object_position'] ?? 'center top') }}" class="form-control" placeholder="center top">
+      <div class="form-text">الصورة تُعرض بوضع <code>cover</code> دائمًا (تملأ المساحة بالكامل)؛ هذا الحقل يضبط أي جزء منها يظهر في المنتصف.</div>
+    </div>
   </div>
 
   <h6 class="fw-bold mb-3">محتوى الواجهة الرئيسية</h6>

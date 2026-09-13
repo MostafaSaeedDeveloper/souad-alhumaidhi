@@ -30,6 +30,31 @@ class GalleryController extends Controller
         return redirect()->route('admin.gallery.index')->with('status', 'تمت الإضافة بنجاح.');
     }
 
+    public function bulkStore(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'images' => ['required', 'array', 'min:1'],
+            'images.*' => ['image', 'max:5120'],
+        ]);
+
+        $nextOrder = (int) GalleryItem::max('sort_order') + 1;
+
+        foreach ($request->file('images') as $file) {
+            GalleryItem::create([
+                'alt' => 'صورة من معرض سعاد الحميضي',
+                'image' => \App\Support\Media::store($file, 'gallery'),
+                'category' => 'general',
+                'is_verified' => false,
+                'sort_order' => $nextOrder++,
+                'status' => 'published',
+            ]);
+        }
+
+        $count = count($request->file('images'));
+
+        return redirect()->route('admin.gallery.index')->with('status', "تم رفع {$count} صورة بنجاح. يمكنك فتح أي صورة لإضافة التفاصيل لاحقًا.");
+    }
+
     public function edit(GalleryItem $gallery)
     {
         return view('admin.gallery.form', ['item' => $gallery]);

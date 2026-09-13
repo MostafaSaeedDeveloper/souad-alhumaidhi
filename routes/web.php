@@ -63,6 +63,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('achievements', Admin\AchievementController::class)->except(['show']);
         Route::resource('media', Admin\MediaController::class)->except(['show']);
         Route::resource('gallery', Admin\GalleryController::class)->except(['show']);
+        Route::post('gallery-bulk', [Admin\GalleryController::class, 'bulkStore'])->name('gallery.bulk-store');
         Route::resource('initiatives', Admin\InitiativeController::class)->except(['show']);
         Route::resource('articles', Admin\ArticleController::class)->except(['show']);
         Route::resource('quotes', Admin\QuoteController::class)->except(['show']);

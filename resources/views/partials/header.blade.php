@@ -41,22 +41,26 @@
       <a href="{{ route('tributes.index') }}#tribute-form" class="btn-gold btn-sm">كلمة وفاء</a>
     </div>
   </nav>
-
-  {{-- Mobile offcanvas --}}
-  <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title">سعاد الحميضي</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="{{ __('إغلاق') }}"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="navbar-nav">
-        @foreach ($navItems as $item)
-          <li class="nav-item mb-2"><a class="nav-link fs-5" href="{{ $item['route'] }}">{{ $item['label'] }}</a></li>
-        @endforeach
-      </ul>
-      <hr class="border-secondary">
-      <a href="{{ route('search') }}" class="nav-link fs-5 mb-2"><i class="bi bi-search ms-2"></i> بحث</a>
-      <a href="{{ route('tributes.index') }}#tribute-form" class="btn-gold w-100 justify-content-center mt-2">كلمة وفاء</a>
-    </div>
-  </div>
 </header>
+
+{{-- Mobile offcanvas: kept OUTSIDE #siteHeader on purpose — the header gains
+     backdrop-filter once scrolled (.scrolled), and backdrop-filter/filter on an
+     ancestor creates a new containing block for position:fixed descendants in
+     Chrome/WebKit, which would trap this fixed-position offcanvas inside the
+     header's own (short) box instead of the full viewport. --}}
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">سعاد الحميضي</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="{{ __('إغلاق') }}"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav">
+      @foreach ($navItems as $item)
+        <li class="nav-item mb-2"><a class="nav-link fs-5" href="{{ $item['route'] }}">{{ $item['label'] }}</a></li>
+      @endforeach
+    </ul>
+    <hr class="border-secondary">
+    <a href="{{ route('search') }}" class="nav-link fs-5 mb-2"><i class="bi bi-search ms-2"></i> بحث</a>
+    <a href="{{ route('tributes.index') }}#tribute-form" class="btn-gold w-100 justify-content-center mt-2">كلمة وفاء</a>
+  </div>
+</div>

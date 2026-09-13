@@ -64,7 +64,7 @@
         <p class="hero-tagline mt-2" data-aos="fade-up" data-aos-delay="250">{{ Setting::get('hero_tagline') }}</p>
         <p class="hero-desc mt-3" data-aos="fade-up" data-aos-delay="350">{{ Setting::get('hero_description') }}</p>
 
-        <div class="d-flex flex-wrap gap-3 mt-4" data-aos="fade-up" data-aos-delay="450">
+        <div class="hero-actions d-flex flex-wrap gap-3 mt-4" data-aos="fade-up" data-aos-delay="450">
           <a href="{{ route('biography') }}" class="btn-gold">
             <i class="bi bi-arrow-left"></i> {{ Setting::get('cta_primary_text', 'استكشف مسيرتها') }}
           </a>

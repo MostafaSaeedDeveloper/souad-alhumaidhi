@@ -386,6 +386,12 @@ img{ max-width:100%; }
 }
 @media (max-width: 575.98px){
   .hero-title{ font-size:1.9rem; }
+  .hero-actions{ flex-wrap:nowrap; gap:.6rem; }
+  .hero-actions .btn-gold, .hero-actions .btn-outline-cream{
+    flex:1 1 0; min-width:0; justify-content:center;
+    padding:.6rem .5rem; font-size:.78rem; gap:.35rem;
+  }
+  .hero-actions .btn-gold i, .hero-actions .btn-outline-cream i{ font-size:.85rem; }
 }
 
 /* Prevent any horizontal overflow */

@@ -358,6 +358,7 @@ img{ max-width:100%; }
   background: linear-gradient(160deg,#2c2519,#171310 65%); color: var(--c-gold-light);
 }
 .portrait-placeholder.light{ background: linear-gradient(160deg, var(--c-cream-2), #fff); color: var(--c-gold); }
+.portrait-placeholder.ratio-16x10{ height:auto; aspect-ratio:16/10; }
 .notice-source{ font-size:.72rem; color: var(--c-text-soft); }
 
 /* Counters */

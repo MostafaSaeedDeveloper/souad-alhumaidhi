@@ -342,7 +342,7 @@
       @foreach($articles as $i => $article)
         <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $i * 120 }}">
           <div class="article-card">
-            <div class="portrait-placeholder light" style="aspect-ratio:16/10;"><i class="bi bi-newspaper fs-2"></i></div>
+            <div class="portrait-placeholder light ratio-16x10"><i class="bi bi-newspaper fs-2"></i></div>
             <div class="body">
               <div class="meta mb-2">{{ $article->source_name }} @if($article->published_at) · {{ $article->published_at->format('Y/m/d') }} @endif</div>
               <h6 class="fs-6 fw-bold">{{ $article->title }}</h6>

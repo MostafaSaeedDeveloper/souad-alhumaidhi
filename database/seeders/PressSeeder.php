@@ -20,6 +20,7 @@ class PressSeeder extends Seeder
             ['name' => 'Arabian Business', 'website_url' => 'https://www.arabianbusiness.com', 'country' => 'الإمارات'],
             ['name' => 'Kuwait Times', 'website_url' => 'https://www.kuwaittimes.com', 'country' => 'الكويت'],
             ['name' => 'Erem News', 'website_url' => 'https://www.eremnews.com', 'country' => 'دولي'],
+            ['name' => 'أرشيف جريدة السفير اللبنانية', 'website_url' => 'https://archive.assafir.com', 'country' => 'لبنان'],
         ];
 
         $outletIds = [];
@@ -84,6 +85,12 @@ class PressSeeder extends Seeder
                 'title' => 'وفاة سعاد الحميضي أشهر سيدة أعمال كويتية',
                 'url' => 'https://www.eremnews.com/economy/937047',
                 'published_at' => null,
+            ],
+            [
+                'outlet' => 'أرشيف جريدة السفير اللبنانية',
+                'title' => 'مجموعة مستثمرين كويتيين بقيادة سعاد الحميضي تشتري عقارًا في ساحة رياض الصلح ببيروت',
+                'url' => 'https://archive.assafir.com/ssr/1183620.html',
+                'published_at' => '2002-07-19',
             ],
         ];
 

@@ -80,7 +80,7 @@ img{ max-width:100%; }
 
 /* ---------- Header ---------- */
 #siteHeader{
-  position: fixed; top:0; inset-inline:0; z-index: 1050;
+  position: fixed; top:0; inset-inline:0; z-index: 1030;
   background: linear-gradient(180deg, rgba(27,23,18,.75), rgba(27,23,18,0));
   transition: background .4s ease, box-shadow .4s ease, padding .3s ease;
   padding-block: .9rem;
@@ -256,6 +256,19 @@ img{ max-width:100%; }
 }
 .video-thumb:hover .video-play span{ transform: scale(1.1); }
 .video-meta{ padding: 1.1rem 1.2rem; }
+
+/* ---------- Video modal ---------- */
+#videoModal .modal-content{
+  background: var(--c-charcoal); border:1px solid rgba(214,175,106,.25);
+}
+#videoModal .modal-header{
+  border-bottom:1px solid rgba(255,255,255,.08); padding: 1rem 1.25rem; align-items:flex-start; gap:1rem;
+}
+#videoModal .modal-title{
+  color:#fff; font-weight:600; font-size:1.05rem; line-height:1.5; margin-inline-end:auto;
+}
+#videoModal .modal-body{ padding: 0 1.25rem 1.25rem; }
+.modal-backdrop.show{ opacity:.85; }
 
 /* ---------- Gallery (real masonry via CSS columns — natural photo proportions) ---------- */
 .gallery-grid{ columns: 4 220px; column-gap: 1rem; }

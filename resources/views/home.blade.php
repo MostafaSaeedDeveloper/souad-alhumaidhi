@@ -34,93 +34,55 @@
 @section('content')
 
 {{-- ============ HERO ============ --}}
-@if($heroPortraitUrl)
-  {{-- Real photo available: one full-bleed background image, exactly like the reference design --}}
-  <section class="hero-section hero-photo" style="background-image:url('{{ $heroPortraitUrl }}'); background-position: {{ $heroObjectPosition }};">
-    @if($heroBgUrl)
-      <div class="hero-ghost" style="background-image:url('{{ $heroBgUrl }}')"></div>
-    @endif
-    <div class="hero-photo-gradient"></div>
-    <div class="container-xl position-relative">
-      <div class="row align-items-center gy-5">
-        <div class="col-lg-4 order-lg-2" data-aos="fade-left">
-          @if($heroQuote)
-            <div class="hero-quote-overlay">
-              <span class="quote-mark">”</span>
-              <p>{{ $heroQuote->quote_text }}</p>
-              <p class="hero-quote-sign">سعاد الحميضي</p>
-            </div>
-          @endif
-        </div>
-        <div class="col-lg-8 order-lg-1">
-          <div data-aos="fade-up">
-            <span class="hero-eyebrow">{{ Setting::get('hero_title') }}</span>
-          </div>
-          <h1 class="hero-title mt-3" data-aos="fade-up" data-aos-delay="150">
-            سعاد <span class="accent">الحميضي</span>
-          </h1>
-          <p class="hero-tagline mt-2" data-aos="fade-up" data-aos-delay="250">{{ Setting::get('hero_tagline') }}</p>
-          <p class="hero-desc mt-3" data-aos="fade-up" data-aos-delay="350">{{ Setting::get('hero_description') }}</p>
-
-          <div class="d-flex flex-wrap gap-3 mt-4" data-aos="fade-up" data-aos-delay="450">
-            <a href="{{ route('biography') }}" class="btn-gold">
-              <i class="bi bi-arrow-left"></i> {{ Setting::get('cta_primary_text', 'استكشف مسيرتها') }}
-            </a>
-            @if($mediaItems->isNotEmpty())
-              <a href="#" class="btn-outline-cream" data-video-embed="{{ $mediaItems->first()->embedUrl() }}" data-video-title="{{ $mediaItems->first()->title }}">
-                <i class="bi bi-play-circle"></i> مشاهدة لقاء تعريفي
-              </a>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-@else
-  {{-- No real photo yet: minimal, unobtrusive fallback (never a large empty placeholder) --}}
-  <section class="hero-section">
-    <div class="bg-fade"></div>
-    <div class="container-xl position-relative">
-      <div class="row align-items-center gy-5">
-        <div class="col-lg-5 order-lg-2" data-aos="fade-down" data-aos-delay="100">
-          <div class="hero-portrait-frame">
-            <div class="portrait-inner">
+<section class="hero-section" @if($heroBgUrl) style="--hero-bg-image:url('{{ $heroBgUrl }}')" @endif>
+  <div class="bg-portrait"></div>
+  <div class="bg-fade"></div>
+  <div class="container-xl position-relative">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-5 order-lg-2" data-aos="fade-down" data-aos-delay="100">
+        <div class="hero-portrait-frame">
+          <div class="portrait-inner">
+            @if($heroPortraitUrl)
+              <img src="{{ $heroPortraitUrl }}" alt="سعاد الحميضي" loading="eager" style="object-position: {{ $heroObjectPosition }};">
+            @else
               <div class="minimal-fallback"><i class="bi bi-flower2"></i></div>
-            </div>
-          </div>
-          <p class="notice-source text-center mt-2 text-white-50">لا تتوفر صورة موثقة الحقوق للنشر حاليًا — رمزية توضيحية</p>
-        </div>
-        <div class="col-lg-7 order-lg-1">
-          <div data-aos="fade-up">
-            <span class="hero-eyebrow">{{ Setting::get('hero_title') }}</span>
-          </div>
-          <h1 class="hero-title mt-3" data-aos="fade-up" data-aos-delay="150">
-            سعاد <span class="accent">الحميضي</span>
-          </h1>
-          <p class="hero-tagline mt-2" data-aos="fade-up" data-aos-delay="250">{{ Setting::get('hero_tagline') }}</p>
-          <p class="hero-desc mt-3" data-aos="fade-up" data-aos-delay="350">{{ Setting::get('hero_description') }}</p>
-
-          <div class="d-flex flex-wrap gap-3 mt-4" data-aos="fade-up" data-aos-delay="450">
-            <a href="{{ route('biography') }}" class="btn-gold">
-              <i class="bi bi-arrow-left"></i> {{ Setting::get('cta_primary_text', 'استكشف مسيرتها') }}
-            </a>
-            @if($mediaItems->isNotEmpty())
-              <a href="#" class="btn-outline-cream" data-video-embed="{{ $mediaItems->first()->embedUrl() }}" data-video-title="{{ $mediaItems->first()->title }}">
-                <i class="bi bi-play-circle"></i> مشاهدة لقاء تعريفي
-              </a>
             @endif
           </div>
+        </div>
+        @unless($heroPortraitUrl)
+          <p class="notice-source text-center mt-2 text-white-50">لا تتوفر صورة موثقة الحقوق للنشر حاليًا — رمزية توضيحية</p>
+        @endunless
+      </div>
+      <div class="col-lg-7 order-lg-1">
+        <div data-aos="fade-up">
+          <span class="hero-eyebrow">{{ Setting::get('hero_title') }}</span>
+        </div>
+        <h1 class="hero-title mt-3" data-aos="fade-up" data-aos-delay="150">
+          سعاد <span class="accent">الحميضي</span>
+        </h1>
+        <p class="hero-tagline mt-2" data-aos="fade-up" data-aos-delay="250">{{ Setting::get('hero_tagline') }}</p>
+        <p class="hero-desc mt-3" data-aos="fade-up" data-aos-delay="350">{{ Setting::get('hero_description') }}</p>
 
-          @if($heroQuote)
-            <div class="hero-quote-card" data-aos="fade-up" data-aos-delay="550">
-              "{{ $heroQuote->quote_text }}"
-            </div>
+        <div class="d-flex flex-wrap gap-3 mt-4" data-aos="fade-up" data-aos-delay="450">
+          <a href="{{ route('biography') }}" class="btn-gold">
+            <i class="bi bi-arrow-left"></i> {{ Setting::get('cta_primary_text', 'استكشف مسيرتها') }}
+          </a>
+          @if($mediaItems->isNotEmpty())
+            <a href="#" class="btn-outline-cream" data-video-embed="{{ $mediaItems->first()->embedUrl() }}" data-video-title="{{ $mediaItems->first()->title }}">
+              <i class="bi bi-play-circle"></i> مشاهدة لقاء تعريفي
+            </a>
           @endif
         </div>
+
+        @if($heroQuote)
+          <div class="hero-quote-card" data-aos="fade-up" data-aos-delay="550">
+            "{{ $heroQuote->quote_text }}"
+          </div>
+        @endif
       </div>
     </div>
-  </section>
-@endif
+  </div>
+</section>
 
 {{-- ============ QUICK HIGHLIGHTS ============ --}}
 <section class="section section-cream">

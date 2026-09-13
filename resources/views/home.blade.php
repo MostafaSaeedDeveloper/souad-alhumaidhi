@@ -275,7 +275,7 @@
         @endforeach
       </div>
       <div class="text-center mt-5">
-        <a href="{{ route('gallery.index') }}" class="btn-gold">View All Gallery</a>
+        <a href="{{ route('gallery.index') }}" class="btn-gold">عرض كل المعرض</a>
       </div>
     @else
       @include('partials.empty-state', ['text' => 'لا تتوفر حاليًا صور موثقة الحقوق للنشر. سيتم تحديث المعرض فور توفر صور بحقوق نشر واضحة.'])
